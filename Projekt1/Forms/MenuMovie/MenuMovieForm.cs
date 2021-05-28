@@ -18,6 +18,7 @@ namespace Projekt1.Forms
     {
         private List<Movie> movies;
         private List<Artist> artistList;
+        private List<Cast> castList;
         private AddNewArtist addNewArist;
         private AddMovieDetails addMovieDetails;
 
@@ -102,9 +103,9 @@ namespace Projekt1.Forms
 
         private void ShowMovieCast()
         {
-            var cast = DbConnection.ReturnCast(GetMovieID());
+            castList = DbConnection.ReturnCast(GetMovieID());
             var castQuery =
-                from c in cast
+                from c in castList
                 join a in artistList on c.id_artysty equals a.id_artysty
                 join m in movies on c.id_filmu equals m.id_filmu
                 select new { c.Rola, a.Imie, a.Nazwisko };
@@ -129,11 +130,28 @@ namespace Projekt1.Forms
 
         private void AddRoleButton_Click(object sender, EventArgs e)
         {
-            if (movieListBox.SelectedItem != null && artistListBox.SelectedItem != null && GetActorID() != -1)
+            if (movieListBox.SelectedItem != null && artistListBox.SelectedItem != null && GetActorID() != -1 && GetMovieID() != -1)
             {
-                var role = roleTextBox.Text;
-                if (role.Length < 2) MessageBox.Show("Podana rola jest zbyt krótka");
-                else AddNewRole(role, GetActorID(), GetMovieID());
+                var cast = DbConnection.ReturnCast(GetActorID());
+                if (cast.Count() > 0)
+                {
+                    var person = cast[0];
+
+                    var role = roleTextBox.Text;
+                    if (person.id_artysty == GetActorID() && person.id_filmu == GetMovieID() && person.Rola == role)
+                    {
+                        MessageBox.Show("Istnieje w bazie już taka pozycja");
+                    }
+                    else
+                    {
+                        if (role.Length < 2) MessageBox.Show("Podana rola jest zbyt krótka");
+                        else AddNewRole(role, GetActorID(), GetMovieID());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Istnieje w bazie już taka pozycja");
+                }
             }
         }
 
