@@ -48,6 +48,7 @@ namespace Projekt1.Forms
             this.addMovieDetailsButton = new System.Windows.Forms.Button();
             this.deleteMovieButton = new System.Windows.Forms.Button();
             this.deleteArtistButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addNewArtistButton
@@ -87,7 +88,7 @@ namespace Projekt1.Forms
             // 
             // addNewMovieButton
             // 
-            this.addNewMovieButton.Location = new System.Drawing.Point(273, 58);
+            this.addNewMovieButton.Location = new System.Drawing.Point(260, 41);
             this.addNewMovieButton.Name = "addNewMovieButton";
             this.addNewMovieButton.Size = new System.Drawing.Size(126, 26);
             this.addNewMovieButton.TabIndex = 4;
@@ -156,7 +157,7 @@ namespace Projekt1.Forms
             this.artistListBox.ItemHeight = 16;
             this.artistListBox.Location = new System.Drawing.Point(602, 150);
             this.artistListBox.Name = "artistListBox";
-            this.artistListBox.Size = new System.Drawing.Size(186, 132);
+            this.artistListBox.Size = new System.Drawing.Size(236, 132);
             this.artistListBox.TabIndex = 12;
             this.artistListBox.SelectedIndexChanged += new System.EventHandler(this.artistListBox_SelectedIndexChanged);
             // 
@@ -229,11 +230,22 @@ namespace Projekt1.Forms
             this.deleteArtistButton.UseVisualStyleBackColor = true;
             this.deleteArtistButton.Click += new System.EventHandler(this.deleteArtistButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(260, 73);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(126, 26);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "Znajdź film ";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MenuMovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(850, 503);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.deleteArtistButton);
             this.Controls.Add(this.deleteMovieButton);
             this.Controls.Add(this.addMovieDetailsButton);
@@ -282,5 +294,6 @@ namespace Projekt1.Forms
         private System.Windows.Forms.Button addMovieDetailsButton;
         private System.Windows.Forms.Button deleteMovieButton;
         private System.Windows.Forms.Button deleteArtistButton;
+        private System.Windows.Forms.Button button1;
     }
 }

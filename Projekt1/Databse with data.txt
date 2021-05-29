@@ -1,0 +1,306 @@
+﻿USE [master]
+GO
+/****** Object:  Database [Ewidencja_plyt_z_filmami]    Script Date: 29.05.2021 15:18:00 ******/
+CREATE DATABASE [Ewidencja_plyt_z_filmami]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Ewidencja_plyt_z_filmami', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS01\MSSQL\DATA\Ewidencja_plyt_z_filmami.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Ewidencja_plyt_z_filmami_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS01\MSSQL\DATA\Ewidencja_plyt_z_filmami_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Ewidencja_plyt_z_filmami].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET  MULTI_USER 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET QUERY_STORE = OFF
+GO
+USE [Ewidencja_plyt_z_filmami]
+GO
+/****** Object:  Table [dbo].[Artysci]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Artysci](
+	[id_artysty] [int] IDENTITY(1,1) NOT NULL,
+	[Imie] [nvarchar](20) NOT NULL,
+	[Nazwisko] [nvarchar](20) NOT NULL,
+	[Data_urodzenia] [date] NULL,
+	[Kraj_pochodzenia] [nvarchar](20) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_artysty] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Filmy]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Filmy](
+	[id_filmu] [int] IDENTITY(1,1) NOT NULL,
+	[Tytul_filmu] [nvarchar](40) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_filmu] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Klienci]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Klienci](
+	[id_klienta] [int] IDENTITY(1,1) NOT NULL,
+	[Imie] [nvarchar](20) NOT NULL,
+	[Nazwisko] [nvarchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_klienta] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Obsada]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Obsada](
+	[id_artysty] [int] NOT NULL,
+	[id_filmu] [int] NOT NULL,
+	[Rola] [nvarchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_artysty] ASC,
+	[id_filmu] ASC,
+	[Rola] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Plyty]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Plyty](
+	[id_plyty] [int] IDENTITY(1,1) NOT NULL,
+	[id_filmu] [int] NOT NULL,
+	[Status] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_plyty] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Szczegoly_Filmu]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Szczegoly_Filmu](
+	[id_filmu] [int] NOT NULL,
+	[Gatunek] [nvarchar](20) NOT NULL,
+	[Kraj_produkcji] [nvarchar](20) NOT NULL,
+	[Jezyk] [nvarchar](20) NOT NULL,
+	[Czas_trwania] [int] NOT NULL,
+	[Wytwornia] [nvarchar](20) NULL,
+	[Budzet] [money] NULL,
+	[Prequel] [int] NULL,
+	[Sequel] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_filmu] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Wypozyczenia]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Wypozyczenia](
+	[id_plyty] [int] NOT NULL,
+	[id_klienta] [int] NOT NULL,
+	[Data_wypozyczenia] [date] NOT NULL,
+	[Data_zwrotu] [date] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_plyty] ASC,
+	[id_klienta] ASC,
+	[Data_wypozyczenia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Artysci] ON 
+
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (32, N'Micheal', N'Fox', CAST(N'1961-06-09' AS Date), N'Kanada')
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (33, N'Christopher', N'Lloyd', CAST(N'1938-10-22' AS Date), N'USA')
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (34, N'Lea', N'Thompson', CAST(N'1961-05-31' AS Date), N'USA')
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (35, N'Sigourney', N'Weaver', CAST(N'1949-10-08' AS Date), N'USA')
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (36, N'Tom', N'Skerritt', CAST(N'1933-08-25' AS Date), N'USA')
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (37, N'Ian', N'Holm', CAST(N'1931-09-12' AS Date), N'Wielka Brytania')
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (38, N'Robb', N'Wells', NULL, N'Kanada')
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (39, N'John', N'Tremblay', NULL, NULL)
+INSERT [dbo].[Artysci] ([id_artysty], [Imie], [Nazwisko], [Data_urodzenia], [Kraj_pochodzenia]) VALUES (40, N'Mike', N'Smith', NULL, N'Kanada')
+SET IDENTITY_INSERT [dbo].[Artysci] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Filmy] ON 
+
+INSERT [dbo].[Filmy] ([id_filmu], [Tytul_filmu]) VALUES (15, N'Powrót do przyszłości')
+INSERT [dbo].[Filmy] ([id_filmu], [Tytul_filmu]) VALUES (16, N'Obcy - ósmy pasażer Nostromo')
+INSERT [dbo].[Filmy] ([id_filmu], [Tytul_filmu]) VALUES (18, N'Trailer Park Boys: The Movie')
+SET IDENTITY_INSERT [dbo].[Filmy] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Klienci] ON 
+
+INSERT [dbo].[Klienci] ([id_klienta], [Imie], [Nazwisko]) VALUES (1, N'aa', N'aa')
+INSERT [dbo].[Klienci] ([id_klienta], [Imie], [Nazwisko]) VALUES (2, N'sdsad', N'sadsad')
+INSERT [dbo].[Klienci] ([id_klienta], [Imie], [Nazwisko]) VALUES (3, N'asdsad', N'sdad')
+INSERT [dbo].[Klienci] ([id_klienta], [Imie], [Nazwisko]) VALUES (4, N'asdasd', N'dsadads')
+INSERT [dbo].[Klienci] ([id_klienta], [Imie], [Nazwisko]) VALUES (5, N'XDDD', N'xDDD')
+INSERT [dbo].[Klienci] ([id_klienta], [Imie], [Nazwisko]) VALUES (6, N'test', N'test')
+SET IDENTITY_INSERT [dbo].[Klienci] OFF
+GO
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (32, 15, N'Marty McFly')
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (33, 15, N'Dr. Emmett')
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (34, 15, N'Lorrain McFly')
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (35, 16, N'Ripley')
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (36, 16, N'Kapitan Dallas')
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (37, 16, N'Ash')
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (38, 18, N'Ricky')
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (39, 18, N'Sexy Bastard Julian')
+INSERT [dbo].[Obsada] ([id_artysty], [id_filmu], [Rola]) VALUES (40, 18, N'Bubbles')
+GO
+INSERT [dbo].[Szczegoly_Filmu] ([id_filmu], [Gatunek], [Kraj_produkcji], [Jezyk], [Czas_trwania], [Wytwornia], [Budzet], [Prequel], [Sequel]) VALUES (15, N'Sci-Fi', N'USA', N'Angielski', 111, N'Universal Pictures', 19000000.0000, NULL, NULL)
+INSERT [dbo].[Szczegoly_Filmu] ([id_filmu], [Gatunek], [Kraj_produkcji], [Jezyk], [Czas_trwania], [Wytwornia], [Budzet], [Prequel], [Sequel]) VALUES (16, N'Horror ', N'USA', N'Angielski', 117, N'20th Century Fox', 11000000.0000, NULL, NULL)
+INSERT [dbo].[Szczegoly_Filmu] ([id_filmu], [Gatunek], [Kraj_produkcji], [Jezyk], [Czas_trwania], [Wytwornia], [Budzet], [Prequel], [Sequel]) VALUES (18, N'Mockument', N'Kanada', N'Angielski', 95, N'', 5000000.0000, NULL, NULL)
+GO
+ALTER TABLE [dbo].[Obsada]  WITH CHECK ADD FOREIGN KEY([id_artysty])
+REFERENCES [dbo].[Artysci] ([id_artysty])
+GO
+ALTER TABLE [dbo].[Obsada]  WITH CHECK ADD FOREIGN KEY([id_filmu])
+REFERENCES [dbo].[Filmy] ([id_filmu])
+GO
+ALTER TABLE [dbo].[Plyty]  WITH CHECK ADD FOREIGN KEY([id_filmu])
+REFERENCES [dbo].[Filmy] ([id_filmu])
+GO
+ALTER TABLE [dbo].[Szczegoly_Filmu]  WITH CHECK ADD FOREIGN KEY([id_filmu])
+REFERENCES [dbo].[Filmy] ([id_filmu])
+GO
+ALTER TABLE [dbo].[Szczegoly_Filmu]  WITH CHECK ADD FOREIGN KEY([Prequel])
+REFERENCES [dbo].[Filmy] ([id_filmu])
+GO
+ALTER TABLE [dbo].[Szczegoly_Filmu]  WITH CHECK ADD FOREIGN KEY([Sequel])
+REFERENCES [dbo].[Filmy] ([id_filmu])
+GO
+ALTER TABLE [dbo].[Wypozyczenia]  WITH CHECK ADD FOREIGN KEY([id_klienta])
+REFERENCES [dbo].[Klienci] ([id_klienta])
+GO
+ALTER TABLE [dbo].[Wypozyczenia]  WITH CHECK ADD FOREIGN KEY([id_plyty])
+REFERENCES [dbo].[Plyty] ([id_plyty])
+GO
+ALTER TABLE [dbo].[Szczegoly_Filmu]  WITH CHECK ADD  CONSTRAINT [CHK_Budzet] CHECK  (([Budzet]>(1)))
+GO
+ALTER TABLE [dbo].[Szczegoly_Filmu] CHECK CONSTRAINT [CHK_Budzet]
+GO
+ALTER TABLE [dbo].[Szczegoly_Filmu]  WITH CHECK ADD  CONSTRAINT [CHK_czas_trwania] CHECK  (([Czas_trwania]>(1)))
+GO
+ALTER TABLE [dbo].[Szczegoly_Filmu] CHECK CONSTRAINT [CHK_czas_trwania]
+GO
+ALTER TABLE [dbo].[Wypozyczenia]  WITH CHECK ADD  CONSTRAINT [CHK_Data_zwrotu] CHECK  (([Data_zwrotu]>[Data_wypozyczenia]))
+GO
+ALTER TABLE [dbo].[Wypozyczenia] CHECK CONSTRAINT [CHK_Data_zwrotu]
+GO
+/****** Object:  StoredProcedure [dbo].[usuwanieArtysty]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[usuwanieArtysty] @id INT
+AS
+	DELETE FROM Obsada WHERE id_artysty = @id
+	DELETE FROM Artysci WHERE id_artysty = @id
+GO
+/****** Object:  StoredProcedure [dbo].[usuwanieFilmu]    Script Date: 29.05.2021 15:18:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[usuwanieFilmu] @id_filmu INT
+AS
+	DELETE FROM Szczegoly_Filmu where id_filmu = @id_filmu
+	DELETE FROM Obsada WHERE id_filmu = @id_filmu
+	UPDATE Szczegoly_Filmu SET Sequel = null WHERE Sequel = @id_filmu
+	UPDATE Szczegoly_Filmu SET Prequel = null WHERE Prequel = @id_filmu
+	DELETE FROM Filmy WHERE id_filmu = @id_filmu
+GO
+USE [master]
+GO
+ALTER DATABASE [Ewidencja_plyt_z_filmami] SET  READ_WRITE 
+GO

@@ -30,7 +30,7 @@ namespace Projekt1.Forms.MenuMovie
         }
         private void RefreshArtistListBox()
         {
-            artistList = DbConnection.ReturnArtistList(null, null);
+            artistList = DbConnection.ReturnArtistList(-1);
             artistListBox.Items.Clear();
             foreach (var artist in artistList)
             {

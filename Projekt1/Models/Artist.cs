@@ -16,7 +16,7 @@ namespace Projekt1.Models
         public string Kraj_pochodzenia { get; set; }
         public override string ToString()
         {
-            var text = id_artysty + ". " + Imie + " " + Nazwisko + " (" + Kraj_pochodzenia + ") ";
+            var text = Imie + " " + Nazwisko + " (" + Kraj_pochodzenia + ") ";
             if (Data_urodzenia != null) text += Helper.ConverDate((DateTime)Data_urodzenia);
             return text;
         }

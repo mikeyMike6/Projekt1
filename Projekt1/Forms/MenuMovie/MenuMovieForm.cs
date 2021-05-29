@@ -42,6 +42,7 @@ namespace Projekt1.Forms
             if (movieTitle.Length > 3) 
             {
                 DbConnection.AddNewMovie(movieTitle);
+                movieTitleTextBox.Text = "";
                 LoadMovieFromDatebase();
                 RefreshMovieListBox();
             }
@@ -120,7 +121,7 @@ namespace Projekt1.Forms
 
         private void RefreshArtistListBox()
         {
-            artistList = DbConnection.ReturnArtistList(null, null);
+            artistList = DbConnection.ReturnArtistList(-1);
             artistListBox.Items.Clear();
             foreach (var artist in artistList)
             {
@@ -130,29 +131,19 @@ namespace Projekt1.Forms
 
         private void AddRoleButton_Click(object sender, EventArgs e)
         {
-            if (movieListBox.SelectedItem != null && artistListBox.SelectedItem != null && GetActorID() != -1 && GetMovieID() != -1)
-            {
-                var cast = DbConnection.ReturnCast(GetActorID());
-                if (cast.Count() > 0)
-                {
-                    var person = cast[0];
+            var actorID = GetActorID();
+            var movieID = GetMovieID();
 
-                    var role = roleTextBox.Text;
-                    if (person.id_artysty == GetActorID() && person.id_filmu == GetMovieID() && person.Rola == role)
-                    {
-                        MessageBox.Show("Istnieje w bazie już taka pozycja");
-                    }
-                    else
-                    {
-                        if (role.Length < 2) MessageBox.Show("Podana rola jest zbyt krótka");
-                        else AddNewRole(role, GetActorID(), GetMovieID());
-                    }
-                }
-                else
+            if (actorID != -1 || movieID != -1 || roleTextBox.Text != "")
+            {
+                if (DbConnection.AddNewRole(movieID, actorID, roleTextBox.Text))
                 {
-                    MessageBox.Show("Istnieje w bazie już taka pozycja");
+                    MessageBox.Show("Dodano obsade");
+                    roleTextBox.Text = "";
+                    RefreshDate();
                 }
             }
+            else MessageBox.Show("Nieprawidłowe dane");
         }
 
         private void AddNewRole(string role, int artistID, int movieID)
@@ -222,6 +213,26 @@ namespace Projekt1.Forms
             else
             {
                 deleteArtistButton.Enabled = true;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var movieTitle = movieTitleTextBox.Text;
+            List<Movie> newMovieList = new List<Movie>();
+            if(movieTitle != "")
+            {
+                var movieD = DbConnection.ReturnMovieList(movieTitle);
+                if (movieD.Count() > 0)
+                {
+                    movieListBox.Items.Clear();
+                    movieD.ForEach(x => movieListBox.Items.Add(x));
+
+                }
+            }
+            else
+            {
+                RefreshDate();
             }
         }
     }

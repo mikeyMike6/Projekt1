@@ -15,13 +15,13 @@ namespace Projekt1.Helpers
             return ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
 
         }
-        public static List<Artist> ReturnArtistList(string searchFor, string searchBy)
+        public static List<Artist> ReturnArtistList(int artistID)
         {
             var commandText = "SELECT * FROM Artysci ";
-            if (searchFor != null)
+            if (artistID >= 0)
             {
-                commandText += "WHERE " + searchBy + " @par";
-                DapperHelper<Artist>.AddParameter("par", searchFor);
+                commandText += "WHERE id_artysty = @id";
+                DapperHelper<Artist>.AddParameter("id", artistID.ToString());
             }
             return DapperHelper<Artist>.ExecuteQuery(getConnection(), commandText).ToList();
         }
@@ -35,12 +35,24 @@ namespace Projekt1.Helpers
             }
             return DapperHelper<Movie>.ExecuteQuery(getConnection(), commandText).ToList();
         }
+        public static List<Movie> ReturnMovieList(string movieTitle)
+        {
+            movieTitle = "%" + movieTitle + "%";
+            var commandText = "SELECT * FROM Filmy ";
+            if (movieTitle != null)
+            {
+                commandText += "WHERE Tytul_filmu LIKE @tytul";
+                DapperHelper<Movie>.AddParameter("tytul", movieTitle);
+            }
+            return DapperHelper<Movie>.ExecuteQuery(getConnection(), commandText).ToList();
+        }
         public static List<MovieDetails> ReturnMovieDetails(int movieID)
         {
             var commandText = "SELECT * FROM Szczegoly_filmu WHERE id_filmu = @id";
             DapperHelper<MovieDetails>.AddParameter("id", movieID.ToString());
             return DapperHelper<MovieDetails>.ExecuteQuery(getConnection(), commandText).ToList();
         }
+
         public static List<Cast> ReturnCast(int movieID)
         {
             var commandText = "SELECT * FROM Obsada WHERE id_filmu = @id";
